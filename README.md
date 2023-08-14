@@ -36,3 +36,7 @@ Install ``vimwhisperer.vim`` using your plugin manager, and map to the leader ke
 ```
     map <Leader>a :silent! call CodeWhisperer()<CR>
 ```
+
+https://github.com/ryanpetrello/vimwhisperer/assets/214912/e13aadf7-8409-4325-be4f-6d9bff8bb945
+
+
