@@ -1,6 +1,6 @@
 # vimwhisperer
 
-A simple Vim plugin for AWS CodeWhisperer code completion support.
+A simple Vim plugin for AWS CodeWhisperer code completion support for the Python language.
 
 ## Configuration and Authentication
 
