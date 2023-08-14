@@ -1,4 +1,4 @@
-# Vimwhisper
+# Vimwhisperer
 
 A simple Vim plugin for AWS CodeWhisperer code completion support.
 
