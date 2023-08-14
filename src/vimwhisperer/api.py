@@ -60,14 +60,22 @@ def get_client():
 def complete(prompt):
     client = get_client()
     prompt = prompt or "\n".join(sys.stdin.readlines())
-    resp = client.generate_completions(
-        fileContext={
-            "leftFileContent": prompt,
-            "rightFileContent": "",
-            "filename": __file__,
-            "programmingLanguage": {"languageName": "python"},
-        }
-    )
-    for c in resp.get("completions", []):
+
+    def _generate_completions():
+        return client.generate_completions(
+            fileContext={
+                "leftFileContent": prompt,
+                "rightFileContent": "",
+                "filename": __file__,
+                "programmingLanguage": {"languageName": "python"},
+            }
+        )
+
+    try:
+        response = _generate_completions()
+    except client.exceptions.AccessDeniedException:
+        pass
+
+    for c in response.get("completions", []):
         for line in c["content"].strip('\n').splitlines():
             yield line

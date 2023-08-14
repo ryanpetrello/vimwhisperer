@@ -1,3 +1,5 @@
 from .api import complete
 
-complete(None)
+completions = complete(None)
+for c in completions:
+    print(c)
