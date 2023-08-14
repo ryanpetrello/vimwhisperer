@@ -1,10 +1,10 @@
 [project]
-name = "vimwhisper"
+name = "vimwhisperer"
 version = "0.0.1"
 authors = [
   { name="Ryan Petrello", email="ryan@ryanpetrello.com" },
 ]
-description = "A small VIM plugin for AWS CodeWhisperer code completion support."
+description = "A simple VIM plugin for AWS CodeWhisperer code completion support."
 readme = "README.md"
 requires-python = ">=3.7"
 classifiers = [
