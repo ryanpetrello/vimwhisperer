@@ -27,7 +27,13 @@ An OIDC client and Bearer token will be generated, and will be cached at ``~/.vi
 
 ## Running Code Completion by Hand
 
-![Example Usage Command](./demo.png)
+```python
+    ~ echo 'def read_from_s3(bucket, key):' | python -m vimwhisperer
+        import boto3
+        s3 = boto3.resource('s3')
+        obj = s3.Object(bucket, key)
+        return obj.get()['Body'].read().decode('utf-8')
+```
 
 ## Installing the Vim Plugin
 
