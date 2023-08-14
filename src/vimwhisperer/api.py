@@ -25,7 +25,10 @@ def get_token():
     url = deviceAuth.data["verificationUriComplete"]
     print(f"Complete device authorization at {url} to proceed.")
     webbrowser.open(url)
-    return manager.create_token(registration.data, deviceAuth.data)
+    token = manager.create_token(registration.data, deviceAuth.data).data
+    token['clientId'] = registration.data['clientId']
+    token['clientSecret'] = registration.data['clientSecret']
+    return token
 
 
 def get_client():
@@ -42,9 +45,8 @@ def get_client():
     if os.path.exists(TOKEN_CACHE):
         token = json.load(open(TOKEN_CACHE))
     else:
-        token = get_token().data
         with open(TOKEN_CACHE, "w") as f:
-            json.dump(token, f)
+            json.dump(get_token(), f)
             print(
                 f"Successfully authenticated to {RTS_PROD_ENDPOINT}.  "
                 f"Credentials cached locally at {TOKEN_CACHE}"
