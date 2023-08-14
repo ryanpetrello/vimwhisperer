@@ -22,7 +22,9 @@ def get_token():
     manager = CodeWhispererSsoAuthManager()
     registration = manager.register_client()
     deviceAuth = manager.device_authorization(registration.data, startUrl=SSO_START_URL)
-    webbrowser.open(deviceAuth.data["verificationUriComplete"])
+    url = deviceAuth.data["verificationUriComplete"]
+    print(f"Complete device authorization at {url} to proceed.")
+    webbrowser.open(url)
     return manager.create_token(registration.data, deviceAuth.data)
 
 
@@ -43,6 +45,10 @@ def get_client():
         token = get_token().data
         with open(TOKEN_CACHE, "w") as f:
             json.dump(token, f)
+            print(
+                f"Successfully authenticated to {RTS_PROD_ENDPOINT}.  "
+                f"Credentials cached locally at {TOKEN_CACHE}"
+            )
 
     def add_header(request, **kwargs):
         request.headers.add_header("Authorization", "Bearer " + token["accessToken"])
