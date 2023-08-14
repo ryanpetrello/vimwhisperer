@@ -1,6 +1,6 @@
 # Vimwhisper
 
-A simple VIM plugin for AWS CodeWhisperer code completion support.
+A simple Vim plugin for AWS CodeWhisperer code completion support.
 
 ## Configuration and Authentication
 
@@ -13,7 +13,7 @@ If necessary, set the following environment variables:
 
 Authenticate for the first time using AWS IAM Identity Center.
 
-An OIDC client and Bearer token will be generated, and will be cached at ~/.vim/.aws-code-whisperer-auth for subsequent API calls:
+An OIDC client and Bearer token will be generated, and will be cached at ``~/.vim/.aws-code-whisperer-auth`` for subsequent API calls:
 
 ```
     ~ python -m vimwhisperer.login
