@@ -12,6 +12,10 @@ classifiers = [
     "License :: OSI Approved :: MIT License",
     "Operating System :: OS Independent",
 ]
+dependencies = [
+  'boto3 >= 1.26',
+]
+
 
 [project.urls]
 "Homepage" = "https://github.com/ryanpetrello/xxx"

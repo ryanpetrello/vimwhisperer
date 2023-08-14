@@ -69,5 +69,4 @@ def complete(prompt):
         }
     )
     for c in resp.get("completions", []):
-        print(prompt.strip())
-        print(c["content"])
+        yield c["content"].replace("\n", "")
