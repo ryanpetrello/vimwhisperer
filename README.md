@@ -7,8 +7,8 @@ A simple VIM plugin for AWS CodeWhisperer code completion support.
 If necessary, set the following environment variables:
 
 ```
-    export VIM_AWS_SSO_START_URL='https://my-example-app.awsapps.com/start'
-    export VIM_AWS_SSO_REGION='us-west-2'
+    ~ export VIM_AWS_SSO_START_URL='https://my-example-app.awsapps.com/start'
+    ~ export VIM_AWS_SSO_REGION='us-west-2'
 ```
 
 Authenticate for the first time using AWS IAM Identity Center.
@@ -16,11 +16,11 @@ Authenticate for the first time using AWS IAM Identity Center.
 An OIDC client and Bearer token will be generated, and will be cached at ~/.vim/.aws-code-whisperer-auth for subsequent API calls:
 
 ```
-    python -m vimwhisperer.login
+    ~ python -m vimwhisperer.login
 ```
 
 ## Running Code Completion by Hand
 
 ```
-    echo 'def read_from_s3(bucket, key):' | python3 -m vimwhisperer
+    ~ echo 'def read_from_s3(bucket, key):' | python3 -m vimwhisperer
 ```
