@@ -4,6 +4,12 @@ A simple Vim plugin for AWS CodeWhisperer code completion support.
 
 ## Configuration and Authentication
 
+Install this Python package, e.g.,
+
+```
+    ~ pip3 install --user git+https://github.com/ryanpetrello/vimwhisperer.git
+```
+
 If necessary, set the following environment variables:
 
 ```
