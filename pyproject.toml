@@ -1,0 +1,17 @@
+[project]
+name = "vimwhisper"
+version = "0.0.1"
+authors = [
+  { name="Ryan Petrello", email="ryan@ryanpetrello.com" },
+]
+description = "A small VIM plugin for AWS CodeWhisperer code completion support."
+readme = "README.md"
+requires-python = ">=3.7"
+classifiers = [
+    "Programming Language :: Python :: 3",
+    "License :: OSI Approved :: MIT License",
+    "Operating System :: OS Independent",
+]
+
+[project.urls]
+"Homepage" = "https://github.com/ryanpetrello/xxx"
