@@ -22,3 +22,11 @@ An OIDC client and Bearer token will be generated, and will be cached at ``~/.vi
 ## Running Code Completion by Hand
 
 ![Example Usage Command](./demo.png)
+
+## Installing the Vim Plugin
+
+Install ``vimwhisperer.vim`` using your plugin manager, and map to the leader key of your choosing, i.e.,
+
+```
+    map <Leader>a :silent! call CodeWhisperer()<CR>
+```
