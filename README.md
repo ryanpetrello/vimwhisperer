@@ -17,13 +17,13 @@ If necessary, set the following environment variables:
     ~ export VIM_AWS_SSO_REGION='us-west-2'
 ```
 
-Authenticate for the first time using AWS IAM Identity Center.
-
-An OIDC client and Bearer token will be generated, and will be cached at ``~/.vim/.aws-code-whisperer-auth`` for subsequent API calls:
+Authenticate for the first time using AWS IAM Identity Center:
 
 ```
     ~ python -m vimwhisperer.login
 ```
+
+An OIDC client and Bearer token will be generated, and will be cached at ``~/.vim/.aws-code-whisperer-auth`` for subsequent API calls:
 
 ## Running Code Completion by Hand
 
