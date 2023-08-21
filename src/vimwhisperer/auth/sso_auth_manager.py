@@ -33,13 +33,13 @@ class CodeWhispererSsoAuthManager:
             cls._instance = super().__new__(cls)
         return cls._instance
 
-    def refresh(self, client_registration, token):
+    def refresh(self, client_registration):
         try:
             new_token_response = self._oidc_client.create_token(
                 clientId=client_registration["clientId"],
                 clientSecret=client_registration["clientSecret"],
                 grantType=REFRESH_GRANT_TYPE,
-                refreshToken=token["refreshToken"],
+                refreshToken=client_registration["refreshToken"],
             )
             return generate_succeeded_service_response(new_token_response)
         except ClientError as e:

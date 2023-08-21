@@ -18,17 +18,23 @@ AWS_REGION = os.environ.get("VIM_AWS_SSO_REGION", "us-east-1")
 TOKEN_CACHE = f'{os.path.expanduser("~")}/.vim/.aws-code-whisperer-auth'
 
 
-def get_token():
+def get_token(registration = None):
     manager = CodeWhispererSsoAuthManager()
-    registration = manager.register_client()
-    deviceAuth = manager.device_authorization(registration.data, startUrl=SSO_START_URL)
+    registration = registration or manager.register_client().data
+    deviceAuth = manager.device_authorization(registration, startUrl=SSO_START_URL)
     url = deviceAuth.data["verificationUriComplete"]
     print(f"Complete device authorization at {url} to proceed.")
     webbrowser.open(url)
-    token = manager.create_token(registration.data, deviceAuth.data).data
-    token['clientId'] = registration.data['clientId']
-    token['clientSecret'] = registration.data['clientSecret']
+    token = manager.create_token(registration, deviceAuth.data).data
+    token['clientId'] = registration['clientId']
+    token['clientSecret'] = registration['clientSecret']
     return token
+
+
+def refresh_token():
+    token = get_token(json.load(open(TOKEN_CACHE)))
+    with open(TOKEN_CACHE, "w") as f:
+        json.dump(token, f)
 
 
 def get_client():
@@ -46,7 +52,8 @@ def get_client():
         token = json.load(open(TOKEN_CACHE))
     else:
         with open(TOKEN_CACHE, "w") as f:
-            json.dump(get_token(), f)
+            token = get_token()
+            json.dump(token, f)
             print(
                 f"Successfully authenticated to {RTS_PROD_ENDPOINT}.  "
                 f"Credentials cached locally at {TOKEN_CACHE}"
@@ -60,24 +67,24 @@ def get_client():
 
 
 def complete(prompt):
-    client = get_client()
     prompt = prompt or "\n".join(sys.stdin.readlines())
 
     def _generate_completions():
-        return client.generate_completions(
-            fileContext={
-                "leftFileContent": prompt,
-                "rightFileContent": "",
-                "filename": __file__,
-                "programmingLanguage": {"languageName": "python"},
-            }
-        )
+        client = get_client()
+        try:
+            return client.generate_completions(
+                fileContext={
+                    "leftFileContent": prompt,
+                    "rightFileContent": "",
+                    "filename": __file__,
+                    "programmingLanguage": {"languageName": "python"},
+                }
+            )
+        except client.exceptions.AccessDeniedException:
+            refresh_token()
+            return _generate_completions()
 
-    try:
-        response = _generate_completions()
-    except client.exceptions.AccessDeniedException:
-        pass
-
+    response = _generate_completions()
     for c in response.get("completions", []):
         for line in c["content"].strip('\n').splitlines():
             yield line
