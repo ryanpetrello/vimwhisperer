@@ -1,6 +1,6 @@
 # vimwhisperer
 
-A simple Vim plugin for AWS CodeWhisperer code completion support for the Python language.
+A simple Vim plugin for AWS CodeWhisperer code completion support.
 
 ## Configuration and Authentication
 
@@ -33,6 +33,12 @@ An OIDC client and Bearer token will be generated, and will be cached at ``~/.vi
         s3 = boto3.resource('s3')
         obj = s3.Object(bucket, key)
         return obj.get()['Body'].read().decode('utf-8')
+```
+
+Target language can be specified via the ``--language`` flag.
+
+```php
+    ~ echo 'function read_from_s3($bucket, $key) {' | python -m vimwhisperer --language php
 ```
 
 ## Installing the Vim Plugin

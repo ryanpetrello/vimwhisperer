@@ -72,7 +72,7 @@ def get_client():
     return client
 
 
-def complete(prompt):
+def complete(prompt, language='python'):
     prompt = prompt or "\n".join(sys.stdin.readlines())
 
     def _generate_completions():
@@ -83,7 +83,7 @@ def complete(prompt):
                     "leftFileContent": prompt,
                     "rightFileContent": "",
                     "filename": __file__,
-                    "programmingLanguage": {"languageName": "python"},
+                    "programmingLanguage": {"languageName": language},
                 }
             )
         except client.exceptions.AccessDeniedException:
