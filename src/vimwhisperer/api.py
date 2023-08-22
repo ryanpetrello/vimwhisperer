@@ -32,9 +32,15 @@ def get_token(registration = None):
 
 
 def refresh_token():
-    token = get_token(json.load(open(TOKEN_CACHE)))
-    with open(TOKEN_CACHE, "w") as f:
-        json.dump(token, f)
+    token = json.load(open(TOKEN_CACHE))
+    try:
+        return CodeWhispererSsoAuthManager().refresh(token).data
+    except:
+        # generally speaking, the refresh token has expired
+        token = get_token(token)
+        with open(TOKEN_CACHE, "w") as f:
+            json.dump(token, f)
+        return token
 
 
 def get_client():
@@ -49,7 +55,7 @@ def get_client():
         config=Config(signature_version=UNSIGNED),
     )
     if os.path.exists(TOKEN_CACHE):
-        token = json.load(open(TOKEN_CACHE))
+        token = refresh_token()
     else:
         with open(TOKEN_CACHE, "w") as f:
             token = get_token()
