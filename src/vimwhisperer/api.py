@@ -9,13 +9,8 @@ from botocore.client import Config
 
 from .auth import CodeWhispererSsoAuthManager
 
-from .constants import RTS_PROD_ENDPOINT, RTS_PROD_REGION
+from .constants import RTS_PROD_ENDPOINT, RTS_PROD_REGION, SSO_START_URL, TOKEN_CACHE
 
-SSO_START_URL = os.environ.get(
-    "VIM_AWS_SSO_START_URL", "https://view.awsapps.com/start"
-)
-AWS_REGION = os.environ.get("VIM_AWS_SSO_REGION", "us-east-1")
-TOKEN_CACHE = f'{os.path.expanduser("~")}/.vim/.aws-code-whisperer-auth'
 
 
 def get_token(registration = None):
